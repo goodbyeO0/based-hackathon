@@ -6,6 +6,10 @@ function Navbar() {
   const { activateBrowserWallet, deactivate, account } = useEthers();
   const etherBalance = useEtherBalance(account);
 
+  const connectWallet = () => {
+    activateBrowserWallet();
+  };
+
   return (
     <nav className="bg-primary p-4 flex justify-between items-center">
       {" "}
@@ -15,7 +19,7 @@ function Navbar() {
         {!account ? (
           <button
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            onClick={() => activateBrowserWallet()}
+            onClick={connectWallet}
           >
             Connect Wallet
           </button>
