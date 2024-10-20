@@ -109,7 +109,7 @@ const ContributeButton = () => {
               type="text"
               value={inputValue}
               onChange={handleChange}
-              placeholder="Project ID"
+              placeholder="Project ID (1/2)"
               className="border p-2 rounded"
             />
             <button
