@@ -174,13 +174,13 @@ function Navbar() {
           className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-2 mb-2 md:mb-0"
           onClick={() => navigate("/contribute")}
         >
-          Go to Contribute
+          Contribute
         </button>
         <button
           className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded mr-2 mb-2 md:mb-0"
           onClick={() => navigate("/all-project")}
         >
-          View All Projects
+          All Projects
         </button>
       </div>
     </nav>
