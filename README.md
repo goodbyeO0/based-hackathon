@@ -17,7 +17,6 @@ An interactive app that transforms voting and funding into a game using IoT and 
 - [Future Development](#future-development)
 - [Problem We're Solving](#problem-were-solving)
 - [Contributing](#contributing)
-- [License](#license)
 - [Contact](#contact)
 
 ## About
@@ -98,7 +97,7 @@ Experience the game of giving: [https://based-hackathon.vercel.app/](https://bas
 ## Usage
 
 1. Connect your Web3 wallet to the app.
-2. Press the big button to make a donation (0.1 ETH per press).
+2. Press the big button to make a donation (0.0001 ETH per press).
 3. Watch the button change colors as you donate more!
 4. Your donations will be used to vote on and fund projects using quadratic voting.
 
@@ -133,10 +132,6 @@ We welcome contributions to improve and expand this project! Here's how you can 
 5. Open a Pull Request
 
 Please make sure to update tests as appropriate and adhere to the [Contributor Covenant](https://www.contributor-covenant.org/) code of conduct.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
 
 ## Contact
 
