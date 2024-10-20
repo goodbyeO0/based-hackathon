@@ -1,7 +1,5 @@
 # Button Up Your Donations: The Game of Giving!
 
-![Button Up Your Donations Logo](./src/assets/logo_basedHacks.jpg)
-
 An interactive app that transforms voting and funding into a game using IoT and blockchain technology.
 
 ## Table of Contents
