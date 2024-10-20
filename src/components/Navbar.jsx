@@ -11,7 +11,9 @@ function Navbar() {
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
+  const [loadingMatchingPool, setLoadingMatchingPool] = useState(false);
   const [countdown, setCountdown] = useState("");
+  const [matchingPool, setMatchingPool] = useState("");
   const timerRef = useRef(null); // Create a ref to store the timer ID
 
   const contractAddress = "0x6081251E41fC8E0153B9125Bd9d7761542d11799";
@@ -22,6 +24,27 @@ function Navbar() {
     } else {
       window.location.href =
         "https://metamask.app.link/dapp/based-hackathon.vercel.app/contribute";
+    }
+  };
+
+  const viewMatchingPool = async () => {
+    setLoadingMatchingPool(true);
+    try {
+      const signer = library.getSigner(account);
+      const contract = new Contract(
+        contractAddress,
+        quadraticFunding.abi,
+        signer
+      );
+
+      // Call roundEndTime as a function
+      const matchingPool = await contract.matchingPool();
+      const numMatchingpool = matchingPool.toNumber(); // Convert BigNumber to number
+      setMatchingPool(numMatchingpool);
+    } catch (e) {
+      console.error("Error fetching round end time:", e);
+    } finally {
+      setLoadingMatchingPool(false);
     }
   };
 
@@ -96,6 +119,7 @@ function Navbar() {
   useEffect(() => {
     if (account) {
       viewRoundEndTime(); // Call the function when the component mounts or account changes
+      viewMatchingPool();
     }
 
     // Cleanup function to clear the timer when the component unmounts
@@ -105,8 +129,30 @@ function Navbar() {
   }, [account]); // Dependency array includes account to call when it changes
 
   return (
-    <nav className="bg-primary p-4 flex justify-between items-center">
-      <div>
+    <nav className="bg-primary p-4 flex flex-col md:flex-row justify-between items-center">
+      {!account ? (
+        <button
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          onClick={connectWallet}
+        >
+          Connect Wallet
+        </button>
+      ) : (
+        <>
+          <span className="text-white mr-4">
+            {`Connected: ${account.substring(0, 6)}...${account.substring(
+              account.length - 4
+            )}`}
+          </span>
+          <button
+            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mr-2"
+            onClick={() => deactivate()}
+          >
+            Disconnect
+          </button>
+        </>
+      )}
+      <div className="mb-2 md:mb-0">
         {loading && <p className="text-gray-600">Loading...</p>}
         {countdown && (
           <p className="text-md font-semibold text-white">
@@ -114,46 +160,28 @@ function Navbar() {
           </p>
         )}
       </div>
-      <div className="wallet-info flex items-center">
+      <div className="mb-2 md:mb-0">
+        {loadingMatchingPool && <p className="text-gray-600">Loading...</p>}
+        {matchingPool && (
+          <p className="text-md font-semibold text-white">
+            MatchingPool:{" "}
+            <span className="text-accent">{formatEther(matchingPool)} ETH</span>
+          </p>
+        )}
+      </div>
+      <div className="wallet-info flex flex-col md:flex-row items-center">
         <button
-          className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-4"
+          className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-2 mb-2 md:mb-0"
           onClick={() => navigate("/contribute")}
         >
           Go to Contribute
         </button>
         <button
-          className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded mr-4"
+          className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded mr-2 mb-2 md:mb-0"
           onClick={() => navigate("/all-project")}
         >
           View All Projects
         </button>
-        {!account ? (
-          <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            onClick={connectWallet}
-          >
-            Connect Wallet
-          </button>
-        ) : (
-          <>
-            <span className="text-white mr-4">
-              {`Connected: ${account.substring(0, 6)}...${account.substring(
-                account.length - 4
-              )}`}
-            </span>
-            <button
-              className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mr-4"
-              onClick={() => deactivate()}
-            >
-              Disconnect
-            </button>
-            {etherBalance && (
-              <span className="text-white">
-                Balance: {parseFloat(formatEther(etherBalance)).toFixed(3)} ETH
-              </span>
-            )}
-          </>
-        )}
       </div>
     </nav>
   );

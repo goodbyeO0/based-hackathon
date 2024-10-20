@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
-import QRCode from "react-qr-code";
+import { ethers } from "ethers";
 
 const ContributeButton = () => {
   const [donations, setDonations] = useState(0);
@@ -9,7 +9,6 @@ const ContributeButton = () => {
   const [auraColor, setAuraColor] = useState("bg-yellow-400"); // Default aura color
   const [isInput, setIsInput] = useState(false);
   const [inputValue, setInputValue] = useState("");
-  const [qrCodeValue, setQrCodeValue] = useState(""); // State to hold QR code value
   const navigate = useNavigate(); // Initialize useNavigate
 
   const handleDonate = () => {
@@ -34,8 +33,7 @@ const ContributeButton = () => {
 
   const handleFundNow = () => {
     const donationAmount = (donations * 0.0001).toFixed(18); // Limit to 18 decimal places
-    const endpoint = `https://metamask.app.link/dapp/based-hackathon.vercel.app/fund?donationAmount=${donationAmount}`;
-    setQrCodeValue(endpoint); // Set the QR code value
+    navigate(`/fund?donationAmount=${donationAmount}&projectId=${inputValue}`); // Pass inputValue as projectId
   };
 
   useEffect(() => {
@@ -63,17 +61,7 @@ const ContributeButton = () => {
 
   return (
     <>
-      {qrCodeValue ? ( // Check if QR code value is set
-        <div className="h-screen w-screen bg-orange-500  flex items-center flex-col justify-center">
-          <QRCode value={qrCodeValue} className="m-8" />
-          <button
-            onClick={() => setQrCodeValue("")} // Clear QR code
-            className="bg-red-500 text-white p-2 rounded mt-4"
-          >
-            Go back
-          </button>
-        </div>
-      ) : isInput ? (
+      {isInput ? (
         <div className="flex flex-col items-center justify-center h-screen">
           <button
             onClick={handleDonate}
@@ -84,7 +72,7 @@ const ContributeButton = () => {
                 ? "scale-95 bg-blue-600"
                 : "scale-100 hover:bg-blue-400"
             }
-                `}
+            `}
           >
             <span className="relative z-10">
               {(donations * 0.0001).toFixed(4)} ETH

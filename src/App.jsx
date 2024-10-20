@@ -7,6 +7,7 @@ import Contribute from "./Pages/Contribute";
 import Fund from "./Pages/Fund";
 import TestCode from "./Pages/TestCode";
 import AllProject from "./Pages/AllProject";
+import FundMatchingPool from "./Pages/FundMatchingPool";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/fund" element={<Fund />} />
           <Route path="/test" element={<TestCode />} />
           <Route path="/all-project" element={<AllProject />} />
+          <Route path="/matching-pool" element={<FundMatchingPool />} />
         </Routes>
       </div>
     </Router>

@@ -5,78 +5,95 @@ import quadraticFunding from "../../artifacts/contracts/QuadraticFunding.sol/Qua
 
 function AllProject() {
   const { account, library } = useEthers();
-  const [loading, setLoading] = useState(false);
-  const [countdown, setCountdown] = useState("");
+  const [allProjectData, setAllProjectData] = useState([]);
 
-  const contractAddress = "0x6081251E41fC8E0153B9125Bd9d7761542d11799";
+  const totalProject = async () => {
+    const contractAddress = "0x6081251E41fC8E0153B9125Bd9d7761542d11799";
+    const signer = library.getSigner(account);
+    const contract = new Contract(
+      contractAddress,
+      quadraticFunding.abi,
+      signer
+    );
+    const projectCount = await contract.projectCount();
+    return projectCount.toNumber(); // Return the project count
+  };
 
-  const handleViewAllProject = async () => {
-    setLoading(true);
-    try {
-      const signer = library.getSigner(account);
-      const contract = new Contract(
-        contractAddress,
-        quadraticFunding.abi,
-        signer
-      );
+  const fetchAllProjects = async () => {
+    const contractAddress = "0x6081251E41fC8E0153B9125Bd9d7761542d11799";
+    const signer = library.getSigner(account);
+    const contract = new Contract(
+      contractAddress,
+      quadraticFunding.abi,
+      signer
+    );
+    const numProjects = await totalProject(); // Await the result of totalProject
+    const projects = []; // Create an array to hold project data
 
-      // Call roundEndTime as a function
-      const roundEndTime = await contract.roundEndTime();
-      const endTime = roundEndTime.toNumber(); // Convert BigNumber to number
-      const currentTime = Math.floor(Date.now() / 1000); // Get current time in seconds
-
-      // Calculate the remaining time
-      const remainingTime = endTime - currentTime;
-
-      if (remainingTime > 0) {
-        // Convert remaining time to months, days, hours, minutes, and seconds
-        const secondsInMinute = 60;
-        const secondsInHour = secondsInMinute * 60;
-        const secondsInDay = secondsInHour * 24;
-        const secondsInMonth = secondsInDay * 30; // Approximation
-
-        const months = Math.floor(remainingTime / secondsInMonth);
-        const days = Math.floor(
-          (remainingTime % secondsInMonth) / secondsInDay
-        );
-        const hours = Math.floor(
-          (remainingTime % secondsInDay) / secondsInHour
-        );
-        const minutes = Math.floor(
-          (remainingTime % secondsInHour) / secondsInMinute
-        );
-        const seconds = remainingTime % secondsInMinute;
-
-        setCountdown(
-          `${months} months, ${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`
-        );
-      } else {
-        setCountdown("Funding round has ended.");
-      }
-    } catch (e) {
-      console.error("Error fetching round end time:", e);
-    } finally {
-      setLoading(false); // Reset loading state
+    for (let i = 1; i <= numProjects; i++) {
+      const projectData = await contract.getProjectDetails(i);
+      projects.push(projectData); // Push project data to the array
     }
+
+    setAllProjectData(projects); // Update state with the array of projects
+    console.log(projects); // Log the projects array
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
-      <h1 className="text-3xl font-bold mb-4 text-gray-800">
-        Funding Round Timer
+    <div className="container mx-auto p-4 bg-background h-screen w-screen">
+      <h1 className="text-2xl font-bold text-center text-text mb-6">
+        All Projects
       </h1>
-      <button
-        onClick={handleViewAllProject}
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4"
-      >
-        Get Round End Time
-      </button>
-      {loading && <p className="text-gray-600">Loading...</p>}
-      {countdown && (
-        <p className="text-lg font-semibold text-gray-700">
-          Countdown: <span className="text-blue-600">{countdown}</span>
-        </p>
-      )}
+      <div className="flex justify-center mb-4">
+        <button
+          onClick={fetchAllProjects}
+          className="bg-secondary hover:bg-purple-700 text-white font-bold py-2 px-4 rounded"
+        >
+          Fetch Projects
+        </button>
+      </div>
+      <div className="overflow-x-auto shadow-md">
+        <table className="min-w-full bg-white border border-gray-300 shadow-md rounded-lg">
+          <thead>
+            <tr className="bg-primary text-white uppercase text-sm leading-normal">
+              <th className="py-3 px-6 text-left">Project Name</th>
+              <th className="py-3 px-6 text-left">Project Owner</th>
+              <th className="py-3 px-6 text-left">Total Contributions (ETH)</th>
+              <th className="py-3 px-6 text-left">Contributors Count</th>
+              <th className="py-3 px-6 text-left">Matching Amount (ETH)</th>
+              <th className="py-3 px-6 text-left">Total Fund After QF (ETH)</th>
+            </tr>
+          </thead>
+          <tbody className="text-gray-600 text-md ">
+            {allProjectData.map((project, index) => (
+              <tr
+                key={index}
+                className="border-b border-gray-300 hover:bg-gray-100"
+              >
+                <td className="py-3 px-6">{project.name}</td>
+                <td className="py-3 px-6">
+                  {`${project.owner.substring(
+                    0,
+                    6
+                  )}...${project.owner.substring(project.owner.length - 4)}`}
+                </td>
+                <td className="py-3 px-6">
+                  {ethers.utils.formatEther(project.totalContributions)} ETH
+                </td>
+                <td className="py-3 px-6">
+                  {project.contributorsCount.toString()}
+                </td>
+                <td className="py-3 px-6">
+                  {ethers.utils.formatEther(project.matchingAmount)} ETH
+                </td>
+                <td className="py-3 px-6">
+                  {ethers.utils.formatEther(project.totalAmount)} ETH
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }
