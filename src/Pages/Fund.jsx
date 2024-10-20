@@ -16,15 +16,8 @@ function Fund() {
 
   const contractAddress = "0x6081251E41fC8E0153B9125Bd9d7761542d11799";
 
-  // Check if the wallet is connected when the component mounts
-  useEffect(() => {
-    if (!account) {
-      activateBrowserWallet(); // Prompt user to connect their wallet
-    }
-  }, [account, activateBrowserWallet]);
-
   const handlePayFund = async () => {
-    if (!library) {
+    if (!library || !account) {
       alert("Please connect your wallet first.");
       return;
     }
