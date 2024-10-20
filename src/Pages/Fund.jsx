@@ -7,7 +7,8 @@ import quadraticFunding from "../../artifacts/contracts/QuadraticFunding.sol/Qua
 function Fund() {
   const { account, library } = useEthers();
   const location = useLocation(); // Initialize useLocation
-  const donationAmount = location.state?.donationAmount || 0; // Get donation amount from state
+  const donationAmount =
+    new URLSearchParams(location.search).get("donationAmount") || 0; // Get donation amount from URL parameters
 
   const [emitFund, setEmitFund] = useState("");
   const [loading, setLoading] = useState(false);
@@ -16,6 +17,11 @@ function Fund() {
   const contractAddress = "0x6081251E41fC8E0153B9125Bd9d7761542d11799";
 
   const handlePayFund = async () => {
+    if (!library) {
+      alert("Please connect your wallet first.");
+      return;
+    }
+
     setLoading(true);
     try {
       const signer = library.getSigner(account);
@@ -53,8 +59,10 @@ function Fund() {
 
   // Automatically run handlePayFund when the component mounts
   useEffect(() => {
-    handlePayFund();
-  }, []); // Empty dependency array means it runs once on mount
+    if (library && account) {
+      handlePayFund();
+    }
+  }, [library, account]); // Run when library or account changes
 
   return (
     <div className="flex justify-center w-screen flex-col items-center">

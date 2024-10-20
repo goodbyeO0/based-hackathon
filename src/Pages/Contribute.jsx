@@ -34,7 +34,7 @@ const ContributeButton = () => {
 
   const handleFundNow = () => {
     const donationAmount = (donations * 0.0001).toFixed(18); // Limit to 18 decimal places
-    const endpoint = `https://based-hackathon.vercel.app/fund?donationAmount=${donationAmount}`;
+    const endpoint = `https://metamask.app.link/dapp/based-hackathon.vercel.app/fund?donationAmount=${donationAmount}`;
     setQrCodeValue(endpoint); // Set the QR code value
   };
 
@@ -64,7 +64,7 @@ const ContributeButton = () => {
   return (
     <>
       {qrCodeValue ? ( // Check if QR code value is set
-        <div className="h-screen w-screen  flex items-center flex-col justify-center">
+        <div className="h-screen w-screen bg-orange-500  flex items-center flex-col justify-center">
           <QRCode value={qrCodeValue} className="m-8" />
           <button
             onClick={() => setQrCodeValue("")} // Clear QR code
