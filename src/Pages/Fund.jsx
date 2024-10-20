@@ -50,7 +50,6 @@ function Fund() {
       alert("Fund created successfully!");
     } catch (error) {
       console.error("Error creating Fund:", error);
-      alert(`Failed to create Fund! Error: ${error.message}`);
     } finally {
       setLoading(false); // Reset loading state
       setIsPay(true);
