@@ -5,7 +5,7 @@ import { useLocation } from "react-router-dom"; // Import useLocation
 import quadraticFunding from "../../artifacts/contracts/QuadraticFunding.sol/QuadraticFunding.json";
 
 function Fund() {
-  const { account, library, activateBrowserWallet } = useEthers();
+  const { account, library, activateBrowserWallet, deactivate } = useEthers();
   const location = useLocation(); // Initialize useLocation
   const donationAmount =
     new URLSearchParams(location.search).get("donationAmount") || 0; // Get donation amount from URL parameters
@@ -15,6 +15,11 @@ function Fund() {
   const [isPay, setIsPay] = useState(false);
 
   const contractAddress = "0x6081251E41fC8E0153B9125Bd9d7761542d11799";
+
+  // Disconnect the wallet when the component mounts
+  useEffect(() => {
+    deactivate(); // Disconnect the wallet
+  }, [deactivate]);
 
   const handlePayFund = async () => {
     if (!library || !account) {
