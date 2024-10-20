@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"; // Import useEffect
+import React, { useState } from "react"; // Import useState
 import { ethers, Contract, utils } from "ethers";
 import { useEthers } from "@usedapp/core";
 import { useLocation } from "react-router-dom"; // Import useLocation
@@ -50,18 +50,12 @@ function Fund() {
       alert("Fund created successfully!");
     } catch (error) {
       console.error("Error creating Fund:", error);
+      alert(`Failed to create Fund! Error: ${error.message}`);
     } finally {
       setLoading(false); // Reset loading state
       setIsPay(true);
     }
   };
-
-  // Automatically run handlePayFund when the component mounts
-  useEffect(() => {
-    if (library && account) {
-      handlePayFund();
-    }
-  }, [library, account]); // Run when library or account changes
 
   return (
     <div className="flex justify-center w-screen flex-col items-center">
@@ -69,8 +63,9 @@ function Fund() {
         <h1>PAY2FUND</h1>
       </div>
       <button
-        onClick={handlePayFund}
+        onClick={handlePayFund} // Call handlePayFund on button click
         className="text-white bg-secondary p-3 rounded-lg"
+        disabled={loading} // Disable button while loading
       >
         {loading ? "PAYING..." : isPay ? "PAID" : "PAY NOW"}
       </button>
