@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useEtherBalance, useEthers } from "@usedapp/core";
 import { formatEther } from "ethers/lib/utils";
 import { ethers, Contract } from "ethers";
@@ -12,6 +12,7 @@ function Navbar() {
 
   const [loading, setLoading] = useState(false);
   const [countdown, setCountdown] = useState("");
+  const timerRef = useRef(null); // Create a ref to store the timer ID
 
   const contractAddress = "0x6081251E41fC8E0153B9125Bd9d7761542d11799";
 
@@ -72,11 +73,16 @@ function Navbar() {
       `${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`
     );
 
+    // Clear any existing timer before setting a new one
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
+    }
+
     // Set up a timer to update the countdown every second
-    const timer = setInterval(() => {
+    timerRef.current = setInterval(() => {
       remainingTime -= 1; // Decrease remaining time by 1 second
       if (remainingTime <= 0) {
-        clearInterval(timer);
+        clearInterval(timerRef.current);
         setCountdown("Funding round has ended.");
       } else {
         updateCountdown(remainingTime); // Update the countdown display
@@ -84,13 +90,18 @@ function Navbar() {
     }, 1000);
 
     // Clear the interval when the component unmounts
-    return () => clearInterval(timer);
+    return () => clearInterval(timerRef.current);
   };
 
   useEffect(() => {
     if (account) {
-      viewRoundEndTime(); // Call the function when the component mounts
+      viewRoundEndTime(); // Call the function when the component mounts or account changes
     }
+
+    // Cleanup function to clear the timer when the component unmounts
+    return () => {
+      clearInterval(timerRef.current);
+    };
   }, [account]); // Dependency array includes account to call when it changes
 
   return (
