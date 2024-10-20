@@ -11,7 +11,7 @@ function Navbar() {
       activateBrowserWallet();
     } else {
       window.location.href =
-        "https://metamask.app.link/dapp/based-hackathon.vercel.app";
+        "https://metamask.app.link/dapp/based-hackathon.vercel.app/contribute";
     }
   };
 
