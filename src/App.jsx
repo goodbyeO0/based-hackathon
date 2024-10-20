@@ -5,7 +5,6 @@ import Home from "./Pages/Home";
 import CreateProject from "./Pages/CreateProject";
 import Contribute from "./Pages/Contribute";
 import Fund from "./Pages/Fund";
-import TestCode from "./Pages/TestCode";
 import AllProject from "./Pages/AllProject";
 import FundMatchingPool from "./Pages/FundMatchingPool";
 
@@ -15,11 +14,10 @@ function App() {
       <div className="flex flex-col min-h-screen">
         <Navbar />
         <Routes>
-          <Route path="/home" element={<Home />} />
+          <Route path="/" element={<Home />} />
           <Route path="/create-project" element={<CreateProject />} />
           <Route path="/contribute" element={<Contribute />} />
           <Route path="/fund" element={<Fund />} />
-          <Route path="/test" element={<TestCode />} />
           <Route path="/all-project" element={<AllProject />} />
           <Route path="/matching-pool" element={<FundMatchingPool />} />
         </Routes>

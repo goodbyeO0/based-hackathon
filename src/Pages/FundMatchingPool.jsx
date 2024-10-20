@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { ethers, Contract } from "ethers";
 import { useEthers } from "@usedapp/core";
-import quadraticFunding from "../../artifacts/contracts/QuadraticFunding.sol/QuadraticFunding.json";
+import quadraticFunding from "../../smart_contract/artifacts/contracts/QuadraticFunding.sol/QuadraticFunding.json";
 
 function FundMatchingPool() {
   const { account, library } = useEthers(); // Get account and library from useEthers

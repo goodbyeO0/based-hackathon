@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { ethers, Contract } from "ethers";
 import { useEthers } from "@usedapp/core";
-import qudraticFunding from "../../artifacts/contracts/QuadraticFunding.sol/QuadraticFunding.json";
+import quadraticFunding from "../../smart_contract/artifacts/contracts/QuadraticFunding.sol/QuadraticFunding.json";
 
 function CreateProject() {
   const { account, library } = useEthers();
@@ -24,7 +24,7 @@ function CreateProject() {
       const signer = library.getSigner(account);
       const contract = new Contract(
         contractAddress,
-        qudraticFunding.abi,
+        quadraticFunding.abi,
         signer
       );
 

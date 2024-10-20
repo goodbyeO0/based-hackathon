@@ -2,7 +2,7 @@ import React, { useState } from "react"; // Import useState
 import { ethers, Contract, utils } from "ethers";
 import { useEthers } from "@usedapp/core";
 import { useLocation, useNavigate } from "react-router-dom"; // Import useLocation and useNavigate
-import quadraticFunding from "../../artifacts/contracts/QuadraticFunding.sol/QuadraticFunding.json";
+import quadraticFunding from "../../smart_contract/artifacts/contracts/QuadraticFunding.sol/QuadraticFunding.json";
 
 function Fund() {
   const { account, library } = useEthers(); // Removed deactivate

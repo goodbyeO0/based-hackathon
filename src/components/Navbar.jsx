@@ -3,7 +3,7 @@ import { useEtherBalance, useEthers } from "@usedapp/core";
 import { formatEther } from "ethers/lib/utils";
 import { ethers, Contract } from "ethers";
 import { useNavigate } from "react-router-dom";
-import quadraticFunding from "../../artifacts/contracts/QuadraticFunding.sol/QuadraticFunding.json";
+import quadraticFunding from "../../smart_contract/artifacts/contracts/QuadraticFunding.sol/QuadraticFunding.json";
 
 function Navbar() {
   const { activateBrowserWallet, deactivate, account, library } = useEthers();
@@ -171,10 +171,16 @@ function Navbar() {
       </div>
       <div className="wallet-info flex flex-col md:flex-row items-center">
         <button
+          className="bg-secondary hover:bg-purple-800 text-white font-bold py-2 px-4 rounded mr-2 mb-2 md:mb-0"
+          onClick={() => navigate("/matching-pool")}
+        >
+          Fund MatchingPool
+        </button>
+        <button
           className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-2 mb-2 md:mb-0"
           onClick={() => navigate("/contribute")}
         >
-          Contribute
+          Fund Project
         </button>
         <button
           className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded mr-2 mb-2 md:mb-0"
