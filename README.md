@@ -1,10 +1,11 @@
 # Button Up Your Donations: The Game of Giving!
 
-![Button Up Your Donations Logo](https://example.com/path-to-your-logo.png)
+![Button Up Your Donations Logo](./src/assets/logo_basedHacks.jpg)
 
 An interactive app that transforms voting and funding into a game using IoT and blockchain technology.
 
 ## Table of Contents
+
 - [About](#about)
 - [Features](#features)
 - [Demo](#demo)
@@ -39,15 +40,15 @@ Experience the game of giving: [https://based-hackathon.vercel.app/](https://bas
 
 ## Technology Stack
 
-- **Frontend**: 
+- **Frontend**:
   - React
   - useDAPP (for Ethereum interactions)
   - TailwindCSS (for styling)
-- **Smart Contracts**: 
+- **Smart Contracts**:
   - Solidity
-- **Development Environment**: 
+- **Development Environment**:
   - Hardhat
-- **Blockchain**: 
+- **Blockchain**:
   - Base (Sepolia testnet)
 
 ## Getting Started
@@ -61,25 +62,31 @@ Experience the game of giving: [https://based-hackathon.vercel.app/](https://bas
 ### Installation
 
 1. Clone the repository:
+
    ```
    git clone https://github.com/your-username/button-up-donations.git
    ```
 
 2. Navigate to the project directory:
+
    ```
    cd button-up-donations
    ```
 
 3. Install dependencies:
+
    ```
    npm install
    ```
+
    or
+
    ```
    yarn install
    ```
 
 4. Create a `.env` file in the root directory and add your environment variables:
+
    ```
    REACT_APP_RPC_URL=your_rpc_url
    REACT_APP_CONTRACT_ADDRESS=your_contract_address
