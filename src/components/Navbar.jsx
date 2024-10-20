@@ -8,12 +8,10 @@ function Navbar() {
 
   const connectWallet = () => {
     if (window.ethereum) {
-      // Request account access
       activateBrowserWallet();
     } else {
-      // Redirect to MetaMask app if not installed
       window.location.href =
-        "https://metamask.app.link/dapp/based-hackathon.vercel.app"; // Updated with your app URL
+        "https://metamask.app.link/dapp/based-hackathon.vercel.app";
     }
   };
 
