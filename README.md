@@ -110,7 +110,7 @@ Experience the game of giving: [https://based-hackathon.vercel.app/](https://bas
 
 Our smart contract is deployed and verified on the Base Sepolia testnet:
 
-[0x6081251E41fC8E0153B9125Bd9d7761542d11799](https://sepolia.basescan.org/address/0x6081251E41fC8E0153B9125Bd9d7761542d11799#code)
+[0x6081251E41fC8E0153B9125Bd9d7761542d11799](https://sepolia.basescan.org/address/0x8dA1b69c7fc6a7e889Dba825b8E7848d8E48aEA8#code)
 
 ## Future Development
 
