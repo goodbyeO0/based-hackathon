@@ -16,7 +16,7 @@ function Fund() {
   const [loading, setLoading] = useState(false);
   const [isPay, setIsPay] = useState(false);
 
-  const contractAddress = "0x6081251E41fC8E0153B9125Bd9d7761542d11799";
+  const contractAddress = "0x8dA1b69c7fc6a7e889Dba825b8E7848d8E48aEA8";
 
   const handlePayFund = async () => {
     if (!library || !account) {

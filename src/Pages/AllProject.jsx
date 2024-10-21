@@ -8,7 +8,7 @@ function AllProject() {
   const [allProjectData, setAllProjectData] = useState([]);
 
   const totalProject = async () => {
-    const contractAddress = "0x6081251E41fC8E0153B9125Bd9d7761542d11799";
+    const contractAddress = "0x8dA1b69c7fc6a7e889Dba825b8E7848d8E48aEA8";
     const signer = library.getSigner(account);
     const contract = new Contract(
       contractAddress,
@@ -20,7 +20,7 @@ function AllProject() {
   };
 
   const fetchAllProjects = async () => {
-    const contractAddress = "0x6081251E41fC8E0153B9125Bd9d7761542d11799";
+    const contractAddress = "0x8dA1b69c7fc6a7e889Dba825b8E7848d8E48aEA8";
     const signer = library.getSigner(account);
     const contract = new Contract(
       contractAddress,
@@ -60,7 +60,7 @@ function AllProject() {
               <th className="py-3 px-6 text-left">Project Owner</th>
               <th className="py-3 px-6 text-left">Total Contributions (ETH)</th>
               <th className="py-3 px-6 text-left">Contributors Count</th>
-              <th className="py-3 px-6 text-left">Matching Amount (ETH)</th>
+              <th className="py-3 px-6 text-left">QF Matching Amount (ETH)</th>
               <th className="py-3 px-6 text-left">Total Fund After QF (ETH)</th>
             </tr>
           </thead>

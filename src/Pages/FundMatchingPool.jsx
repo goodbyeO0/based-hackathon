@@ -7,7 +7,7 @@ function FundMatchingPool() {
   const { account, library } = useEthers(); // Get account and library from useEthers
   const [amount, setAmount] = useState(""); // State for the amount to add to the matching pool
   const [loading, setLoading] = useState(false); // State for loading status
-  const contractAddress = "0x6081251E41fC8E0153B9125Bd9d7761542d11799"; // Your contract address
+  const contractAddress = "0x8dA1b69c7fc6a7e889Dba825b8E7848d8E48aEA8"; // Your contract address
 
   const handleAddToMatchingPool = async (event) => {
     event.preventDefault(); // Prevent default form submission

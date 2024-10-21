@@ -16,7 +16,7 @@ function Navbar() {
   const [matchingPool, setMatchingPool] = useState("");
   const timerRef = useRef(null); // Create a ref to store the timer ID
 
-  const contractAddress = "0x6081251E41fC8E0153B9125Bd9d7761542d11799";
+  const contractAddress = "0x8dA1b69c7fc6a7e889Dba825b8E7848d8E48aEA8";
 
   const connectWallet = () => {
     if (window.ethereum) {
@@ -39,7 +39,7 @@ function Navbar() {
 
       // Call roundEndTime as a function
       const matchingPool = await contract.matchingPool();
-      const numMatchingpool = matchingPool.toNumber(); // Convert BigNumber to number
+      const numMatchingpool = matchingPool.toString(); // Convert BigNumber to number
       setMatchingPool(numMatchingpool);
     } catch (e) {
       console.error("Error fetching round end time:", e);
@@ -165,7 +165,9 @@ function Navbar() {
         {matchingPool && (
           <p className="text-md font-semibold text-white">
             MatchingPool:{" "}
-            <span className="text-accent">{formatEther(matchingPool)} ETH</span>
+            <span className="text-accent">
+              {ethers.utils.formatEther(matchingPool)} ETH
+            </span>
           </p>
         )}
       </div>
